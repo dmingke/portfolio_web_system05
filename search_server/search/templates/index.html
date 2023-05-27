@@ -1,0 +1,60 @@
+<!-- DO NOT CHANGE THIS (aside from where we say 'FIXME') -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ask485</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="feed">
+      <div class="ask485">
+        <h1>ask485?</h1>
+      </div>
+
+      <div class="search_bar">
+        <form action="/" method="GET">
+          <div>
+            <input type="text" name="q" value="{{query_term}}" required />
+          </div>
+          <div class="pagerank_weight">Pagerank Weight</div>
+          <div>
+            <input
+              type="range"
+              name="w"
+              id="range1"
+              min="0"
+              max="1"
+              step="0.01"
+              value="{% if weight %}{{weight}}{% else %}0.5{% endif %}"
+            />
+          </div>
+          <input type="submit" value="Search" />
+        </form>
+      </div>
+
+      <div class="docs">
+        {% if docs is defined %} {% if docs|length == 0 %}
+        <div class="no_results">No search results found!</div>
+        {% else %} {% for doc in docs %}
+        <a href="{{doc.url}}" class="doc_url">{{doc.url}}</a>
+        <div class="doc_title">{{doc.title}}</div>
+        <div class="doc_summary">{{doc.summary}}</div>
+        {% endfor %} {% endif %} {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
